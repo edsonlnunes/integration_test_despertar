@@ -5,9 +5,8 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "test:setup": "npm run migration:rollback && npm run migration:run",
-    "test:clean": "npm run migration:rollback",
-    "test:dev": "npm run test:setup && dotenv -e .env.test -- tsx --watch --test test/**.test.ts",
-    "test": "npm run test:setup && dotenv -e .env.test -- tsx --test test/**.test.ts",
+    "test:dev": "npm run test:setup && dotenv -e .env.test -- tsx --watch --test test/**/**.test.ts",
+    "test": "npm run test:setup && dotenv -e .env.test -- tsx --test test/**/**.test.ts",
     "migration:run:prod": "dotenv -e .env -- knex --knexfile src/config/knex-db.ts migrate:up",
     "migration:make": "knex --knexfile src/config/knex-db.ts migrate:make",
     "migration:run": "dotenv -e .env.test -- knex --knexfile src/config/knex-db.ts migrate:up",
@@ -37,6 +36,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
+    "mysql": "^2.18.1",
     "pg": "^8.12.0"
   }
 }

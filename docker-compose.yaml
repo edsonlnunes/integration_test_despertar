@@ -34,9 +34,39 @@ services:
     networks:
       - growdev
 
+  # db:
+  #   image: mysql/mysql-server:latest
+  #   container_name: mysql-dev
+  #   restart: always
+  #   environment:
+  #     MYSQL_DATABASE: despertar
+  #     MYSQL_ROOT_PASSWORD: despertar2024
+  #     MYSQL_ROOT_HOST: '%'
+  #   ports:
+  #     - '3306:3306'
+  #   volumes:
+  #     - mysql-volume:/var/lib/mysql
+  #   networks:
+  #     - growdev
+
+  # db_test:
+  #   image: mysql/mysql-server:latest
+  #   container_name: mysql-test
+  #   restart: always
+  #   environment:
+  #     MYSQL_DATABASE: test_despertar
+  #     MYSQL_ROOT_PASSWORD: test_db
+  #     MYSQL_ROOT_HOST: '%'
+  #   ports:
+  #     - '3307:3306'
+  #   networks:
+  #     - growdev
+
 networks:
   growdev:
     driver: bridge
 
 volumes:
   postgres:
+  # mysql-volume:
+  #   driver: local

@@ -1,7 +1,7 @@
 import { type Knex, knex as setupKnex } from "knex";
 import appEnvs from "./env";
 
-// Update with your config settings.
+// typeORM, Prisma, Sequelize, knex
 export const config: { [key: string]: Knex.Config } = {
   test: {
     client: "pg",

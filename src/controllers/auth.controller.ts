@@ -55,6 +55,10 @@ export class AuthController {
             return response.status(400).json({ message: 'Requisição inválida' })
         }
 
+        if (input.password.length < 6) {
+            return response.status(400).json({ message: 'Senha fraca' })
+        }
+
         const userAlreadExist = await knexClient.table('users').where('email', input.email).first()
 
         if (userAlreadExist) {
@@ -63,21 +67,25 @@ export class AuthController {
 
         const password = await bcrypt.hash(input.password, appEnvs.HASH_SALT)
 
-        const userCreated = await knexClient
+        await knexClient
             .table('users')
             .insert({
                 name: input.name,
                 email: input.email,
                 id: randomUUID(),
                 password
-            }, "*")
+            })
 
+        const userCreated = await knexClient.table('users').where('email', input.email).first()
+
+        // 2xx => sucesso
+        // 201 = algo foi criado
         return response.status(201).json({
             message: 'Usuário criado', data: {
-                id: userCreated[0].id,
-                name: userCreated[0].name,
-                email: userCreated[0].email,
-                enable: userCreated[0].enable
+                id: userCreated!.id,
+                name: userCreated!.name,
+                email: userCreated!.email,
+                enable: userCreated!.enable
             }
         })
     }
